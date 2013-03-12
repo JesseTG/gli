@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!DOCTYPE kueken [
+  <!-- Define root element -->
+  <!ELEMENT kueken (sampler*)>
+  <!-- version of the DTD, for future revision compatibility -->
+  <!ATTLIST kueken version NMTOKEN #REQUIRED>
+
+  <!-- Define the sampler element -->
+  <!ELEMENT sampler (filter?, wrap?, lod?, compare?)>
+      
+  <!-- Define the filter element -->
+  <!ELEMENT filter EMPTY>
+  <!ATTLIST filter min (nearest | linear | nearest_mipmap_nearest | nearest_mipmap_linear | linear_mipmap_linear | linear_mipmap_nearest) #REQUIRED>
+  <!ATTLIST filter mag (nearest | linear) #REQUIRED>
+  <!ATTLIST filter max_aniso (1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16) #REQUIRED>
+
+  <!-- Define the wrap element -->
+  <!ELEMENT wrap EMPTY>
+  <!ATTLIST wrap s (clamp_to_edge | mirrored_repeat | repeat | clamp_to_border | mirror_clamp | mirror_clamp_to_edge) #REQUIRED>
+  <!ATTLIST wrap t (clamp_to_edge | mirrored_repeat | repeat | clamp_to_border | mirror_clamp | mirror_clamp_to_edge) #REQUIRED>
+  <!ATTLIST wrap r (clamp_to_edge | mirrored_repeat | repeat | clamp_to_border | mirror_clamp | mirror_clamp_to_edge) #REQUIRED>
+  <!ATTLIST wrap border_color NMTOKENS #REQUIRED>
+
+  <!-- Define the lod element -->
+  <!ELEMENT lod EMPTY>
+  <!ATTLIST lod min NMTOKEN #REQUIRED>
+  <!ATTLIST lod max NMTOKEN #REQUIRED>
+
+  <!-- Define the compare element -->
+  <!ELEMENT compare EMPTY>
+  <!ATTLIST compare mode (none | compare_ref_to_texture) #REQUIRED>
+  <!ATTLIST compare func (lequal | gequal | less | greater | equal | notequal | always | never) #IMPLIED>
+]>
+
+<kueken version="1.0">
+  <sampler>
+    <filter
+      min="nearest"
+      mag="nearest"
+      max_aniso="16" />
+    <wrap
+      s="repeat"
+      t="repeat"
+      r="repeat" 
+      border_color="0.0 0.0 0.0 0.0" />
+    <lod 
+      min="0"
+      max="1000" />
+    <compare mode="none" />
+  </sampler>
+</kueken>

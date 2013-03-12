@@ -21,33 +21,42 @@
 /// THE SOFTWARE.
 ///
 /// @ref core
-/// @file gli/gli.hpp
-/// @date 2008-12-19 / 2013-01-11
+/// @file gli/test/core_load_ktx.hpp
+/// @date 2013-03-12 / 2013-03-12
 /// @author Christophe Riccio
 ///////////////////////////////////////////////////////////////////////////////////
 
-/*! @mainpage OpenGL Image
- *
- */
+#include <gli/gli.hpp>
 
-#ifndef GLI_INCLUDED
-#define GLI_INCLUDED
+int test_texture2d_export()
+{
+	int Error(0);
 
-#define GLI_VERSION					50
-#define GLI_VERSION_MAJOR			0
-#define GLI_VERSION_MINOR			5
-#define GLI_VERSION_PATCH			0
-#define GLI_VERSION_REVISION		0
+	{
+		gli::texture2D Texture(gli::loadStorageKTX("../../data/test_rgb8.ktx"));
+		assert(!Texture.empty());
+		gli::saveStorageKTX(Texture, "../../data/test_rgb8_saved.ktx");
+	}
+	{
+		gli::texture2D Texture(gli::loadStorageKTX("../../data/test_rgb8_saved.ktx"));
+		assert(!Texture.empty());
+		gli::saveStorageKTX(Texture, "../../data/test_rgb8_reloaded.ktx");
+	}
+	{
+		gli::texture2D Texture(gli::loadStorageKTX("../../data/test_bc1.ktx"));
+		assert(!Texture.empty());
+		gli::saveStorageKTX(Texture, "../../data/test_bc1_saved.ktx");
+	}
 
-#include "./core/storage.hpp"
-#include "./core/texture.hpp"
-#include "./core/clear.hpp"
-#include "./core/comparison.hpp"
-#include "./core/copy.hpp"
-#include "./core/load_dds.hpp"
-#include "./core/save_dds.hpp"
-#include "./core/load_ktx.hpp"
-#include "./core/save_ktx.hpp"
-#include "./core/view.hpp"
+	return Error;
+}
 
-#endif//GLI_INCLUDED
+int main()
+{
+	int Error(0);
+
+	Error += test_texture2d_export();
+
+	return Error;
+}
+

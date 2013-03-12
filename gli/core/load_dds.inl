@@ -315,7 +315,7 @@ inline storage loadStorageDDS
 	//* Read magic number and check if valid .dds file 
 	FileIn.read((char*)&Magic, sizeof(Magic));
 
-	assert(strncmp(Magic, "DDS ", 4) == 0);
+	assert(strncmp(Magic, "DDS ", sizeof(Magic)) == 0);
 
 	// Get the surface descriptor 
 	FileIn.read((char*)&HeaderDesc, sizeof(HeaderDesc));

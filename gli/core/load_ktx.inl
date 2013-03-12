@@ -32,7 +32,22 @@
 namespace gli{
 namespace detail
 {
-
+	struct ktxHeader
+	{
+		glm::uint32 Endianness;
+		glm::uint32 GLType;
+		glm::uint32 GLTypeSize;
+		glm::uint32 GLFormat;
+		glm::uint32 GLInternalFormat;
+		glm::uint32 GLBaseInternalFormat;
+		glm::uint32 PixelWidth;
+		glm::uint32 PixelHeight;
+		glm::uint32 PixelDepth;
+		glm::uint32 NumberOfArrayElements;
+		glm::uint32 NumberOfFaces;
+		glm::uint32 NumberOfMipmapLevels;
+		glm::uint32 BytesOfKeyValueData;
+	};
 }//namespace detail
 
 inline storage loadStorageKTX
@@ -42,6 +57,15 @@ inline storage loadStorageKTX
 {
 	std::ifstream File(Filename.c_str(), std::ios::in | std::ios::binary);
 	assert(!File.fail());
+
+	// Reading the magic number
+	char Magic[12];
+	File.read((char*)&Magic, sizeof(Magic));
+	assert(strncmp(Magic, "«KTX 11»\r\n\x1A\n", sizeof(Magic)) == 0);
+
+	// Reading the header
+	detail::ktxHeader Header;
+	File.read((char*)&Header, sizeof(Header));
 
 	if(File.fail())
 		return storage();
