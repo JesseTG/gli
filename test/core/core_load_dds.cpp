@@ -208,7 +208,6 @@ int main()
 	int Error(0);
 
 	Error += test_texture2d_export_dds();
-	Error += test_texture2d_image_size();
 	Error += test_texture2d();
 	Error += test_texture2DArray();
 	Error += test_textureCube();
